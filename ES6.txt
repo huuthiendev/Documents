@@ -1,0 +1,212 @@
+﻿ES6: 
+Editor online: https://jsbin.com/mehuzavefa/edit?js,console
+- Biến Let và Var:
+	+ Giống: chỉ tồn tại trong hàm
+	+ Khác: 
+		+ Let: gặp thẻ đóng sẻ bị hủy "}" 
+
+- Template Virals: 
+	+ Nằm trong cặp dấu ``
+	+ Có thể gọi biến trược tiếp trong chuổi
+	vd: console.log(`xin chao ${bien}`);
+
+- Arrow Function:
+	vd: 
+		+ let XinChao = () => "Hello World";
+		+ let Tinh = (a,b) => a+b; hoặc let Tinh = (a,b) => {return a+b;}
+
+- Duyệt mảng dùng map: 
+	vd:	 
+		let mang = ["Thiện", "Uyên"];
+
+		mang.map((giatri) => {
+		  console.log(giatri);
+		});
+
+- Object: 
+	+ Dạng key:value
+	+ Không có tính kế thừa như class
+	+ Khác nhau giữa object và class: object có thể dùng tên gọi trực tiếp, class phải khởi tạo
+	vd: 
+		var NhanVien = {
+		  manv: 175383,
+		  ten: 'Huỳnh Hữu Thiện',
+		  
+		  XuatMaNVCu() {
+			return "tma_" + this.manv + "_mobile";
+		  },
+		  
+		  XuatMaNVMoi: () => {
+			return "tma_" + this.manv + "_mobile";
+		  }
+		}
+		
+		console.log(NhanVien.XuatMaNVCu());
+
+- Destructuring (phân rã cấu trúc): 
+	+ Tránh việc sữ dụng quá nhiều dữ liệu
+	vd: 
+	--	Phân rã object
+	
+		var ConNguoi = {
+		  manv: 175383,
+		  ten: 'Huỳnh Hữu Thiện',
+		  
+		  XuatMaNVMoi: () => {
+			return "tma_" + this.manv + "_mobile";
+		  }
+		}
+
+		let {manv: manhanvien, XuatMaNVMoi: xuatnv} = ConNguoi;
+
+		console.log(manhanvien + " - " + xuatnv);
+	
+	-- Phân rã mảng
+	
+		mang = ["Thiện", "Uyên"];
+
+		let[gt1, gt2] = mang;
+
+		console.log(gt1)
+		
+- Rest Paramater: Truyền tham số vào hàm với số lượng chưa xác định trước được
+	** Luôn để rest paramater cuối cùng trong khai báo hàm vd: let TinhTong(a,b, ...nThamSo)
+	vd: 
+		let TinhTong = (...nThamSo) => {
+		  let tong = 0;
+		  nThamSo.map((giatri) => tong += giatri);
+		  return tong;
+		}
+
+		console.log(TinhTong(5,6,7,8,9));
+		
+- Class: 
+	+ Có tính kế thừa
+	+ Tất cả các biến trong class phải khai báo trong phương thức contrucstor và không khai báo 
+		kiểu dự liệu mà thông qua biến this.
+	+ Không sữ dụng được template virals
+	+ Không khai báo arrow function
+	vd: 
+		class Animal {
+  
+		  constructor() {
+			this.age = 3;
+			this.sex = "male";
+			this.SayHello = () => "I'm animal";
+		  }
+		  
+		  Show(name){
+			return "Name: " + name;
+		  }
+		  
+		}
+
+		class Dog extends Animal {
+		  
+		  constructor() {
+			super();
+			this.tocdo = 5;
+		  }
+		  
+		}
+
+		dog = new Dog();
+		console.log(dog.age + " - " + 
+					dog.tocdo + " - " + 
+					dog.Show("Lucky") + " - " + 
+					dog.SayHello());
+					
+- Xữ lý mãng:
+	vd: 
+		mang = [
+		  {
+			ten: "Thiện",
+			ngonngu: "Java"
+		  },
+		  {
+			ten: "Uyên",
+			ngonngu: "English"
+		  },
+		  {
+			ten: "Thiện",
+			ngonngu: "English"
+		  },
+		  {
+			ten: "Thiện",
+			ngonngu: "Java Script"
+		  }
+		];
+	-- Foreach:
+		
+		for (let giatri of mang) {
+		  console.log(`Tên: ${giatri.ten}`);
+		}
+		
+	-- Find: xuất giá trị tìm kiếm được đầu tiên
+	
+		let timkiem = mang.find((giatri) => {
+			return giatri.ten === "Thiện";
+		})
+
+		console.log(timkiem);
+	-- Filter: xuất tất cả giá trị tìm kiếm được
+		let timkiem = mang.filter((giatri) => {
+			return giatri.ten === "Thiện";
+		})
+
+		console.log(timkiem);
+		
+	-- findIndex: xuất vị trí tìm kiếm được đầu tiên
+		let timkiem = mang.findIndex((giatri) => {
+			return giatri.ten === "Thiện";
+		})
+
+		console.log(timkiem);
+		
+- Mãng Map: mãng ["key","value"]
+	vd:
+		let mangMap = new Map([
+		  ["ten", "Thiện"],
+		  ["tuoi", 22],
+		  ["que", "An Giang"]
+		]);
+
+
+		console.log(mangMap.get("ten"));
+	
+	-- mangMap.has("ten"): Kiểm tra sự tồn tại của key trả về true false
+	-- Duyệt Map:
+		+ Duyệt các key
+			for(let key of mangMap.keys()) {
+			  console.log(key);
+			} 
+			
+		+ Duyệt các giá trị
+			for(let key of mangMap.values()) {
+			  console.log(key);
+			}
+		
+		+ Duyệt phân rã
+			for(let [key,value] of mangMap) {
+			  console.log(value);
+			}
+			
+		+ Duyệt forEach
+			mangMap.forEach((key, value)=>{
+			  console.log(key + " - " + value);
+			})
+			
+	-- Thêm: 
+			mangMap.set("sdt", "0969453777");
+	-- Xóa:
+			mangMap.delete("sdt");
+			
+- Mãng Set:
+	vd: 
+		let mangSet = new Set(["Thiện", "Uyên", "Thắng", "Thanh"]);
+		mangSet.add("Linda");
+		mangSet.delete("Thanh");
+
+		mangSet.forEach((value) => {
+		  console.log(value);
+		})
